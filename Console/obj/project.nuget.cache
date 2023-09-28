@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "vysoqlXAWLvBDDW24QoIEl1BSKRrPL5DS+t81YB+UQzcrAXoyG4/IsPjCVsa+xB91eioPDl0K8Sg5bu22nBUnA==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\JOAQUÍN QUIROGA\\Project\\Calculadora\\Console\\Console.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "El proyecto Entidades no es compatible con net6.0 (.NETCoreApp,Version=v6.0). El proyecto Entidades admite: net6.0-windows7.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Entidades",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "El proyecto TrabajoIngegrador no es compatible con net6.0 (.NETCoreApp,Version=v6.0). El proyecto TrabajoIngegrador admite: net6.0-windows7.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "TrabajoIngegrador",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}

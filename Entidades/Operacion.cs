@@ -8,18 +8,9 @@ namespace Entidades
         private Numeracion segundoOperando;
 
         public Operacion(Numeracion primerOperando, Numeracion segundoOperando)
-        {
-            try
-            {              
-                PrimerOperando = primerOperando;
-                SegundoOperando = segundoOperando;
-            }
-            catch (Exception ex)
-            {
-                // Manejar la excepción aquí
-                Console.WriteLine($"Se ha producido una excepción: {ex.Message}");
-            }
-            
+        {                 
+            PrimerOperando = primerOperando;
+            SegundoOperando = segundoOperando;                  
         }
         public Numeracion PrimerOperando{ get { return primerOperando;}set { primerOperando = value;}}
         public Numeracion SegundoOperando{ get { return segundoOperando;}set { segundoOperando = value;}}
@@ -35,14 +26,11 @@ namespace Entidades
                     break;
                 case '-':
                     resultado = PrimerOperando - SegundoOperando;
-
                     break;
                 case '*':
                     resultado = PrimerOperando * SegundoOperando;
-
                     break;
                 case '/':
-
                     resultado = PrimerOperando / SegundoOperando;
                     break;
                 default:
@@ -51,7 +39,7 @@ namespace Entidades
 
             }
             return resultado;
-        }  /**/
+        }  
 
     }
 }

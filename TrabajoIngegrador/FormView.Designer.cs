@@ -31,22 +31,23 @@
             btnOperar = new Button();
             btnCerrar = new Button();
             btnLimpiar = new Button();
-            textBox1 = new TextBox();
+            txbPrimerOperando = new TextBox();
             lblPrimerOperando = new Label();
             lblSegundoOperando = new Label();
-            textBox2 = new TextBox();
+            txbSegundoOperando = new TextBox();
             lblOperar = new Label();
             lblResultado = new Label();
-            radioButtonBinario = new RadioButton();
-            radioButtonDecimal = new RadioButton();
-            GrpBoxSistema = new GroupBox();
-            comboBoxOperadores = new ComboBox();
-            lblResult = new Label();
-            GrpBoxSistema.SuspendLayout();
+            rbBinario = new RadioButton();
+            rbDecimal = new RadioButton();
+            gbSistemas = new GroupBox();
+            cbOperadores = new ComboBox();
+            gbSistemas.SuspendLayout();
             SuspendLayout();
             // 
             // btnOperar
             // 
+            btnOperar.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 255, 255);
+            btnOperar.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnOperar.Location = new Point(12, 464);
             btnOperar.Name = "btnOperar";
             btnOperar.Size = new Size(238, 43);
@@ -57,6 +58,8 @@
             // 
             // btnCerrar
             // 
+            btnCerrar.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 255, 255);
+            btnCerrar.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnCerrar.Location = new Point(528, 464);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(219, 43);
@@ -67,21 +70,24 @@
             // 
             // btnLimpiar
             // 
+            btnLimpiar.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 255, 255);
+            btnLimpiar.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnLimpiar.Location = new Point(256, 464);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(266, 43);
             btnLimpiar.TabIndex = 4;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
             // 
-            // textBox1
+            // txbPrimerOperando
             // 
-            textBox1.Font = new Font("Segoe UI Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(12, 417);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "1,2,3...";
-            textBox1.Size = new Size(238, 43);
-            textBox1.TabIndex = 5;
+            txbPrimerOperando.Font = new Font("Segoe UI Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            txbPrimerOperando.Location = new Point(12, 417);
+            txbPrimerOperando.Name = "txbPrimerOperando";
+            txbPrimerOperando.PlaceholderText = "1,2,3...";
+            txbPrimerOperando.Size = new Size(238, 43);
+            txbPrimerOperando.TabIndex = 5;
             // 
             // lblPrimerOperando
             // 
@@ -105,15 +111,15 @@
             lblSegundoOperando.TabIndex = 8;
             lblSegundoOperando.Text = "Segundo operador:";
             // 
-            // textBox2
+            // txbSegundoOperando
             // 
-            textBox2.Font = new Font("Segoe UI Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.Location = new Point(528, 417);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "1,2,3...";
-            textBox2.Size = new Size(216, 43);
-            textBox2.TabIndex = 7;
-            textBox2.TextChanged += textBox2_TextChanged;
+            txbSegundoOperando.Font = new Font("Segoe UI Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            txbSegundoOperando.Location = new Point(528, 417);
+            txbSegundoOperando.Name = "txbSegundoOperando";
+            txbSegundoOperando.PlaceholderText = "1,2,3...";
+            txbSegundoOperando.Size = new Size(216, 43);
+            txbSegundoOperando.TabIndex = 7;
+            txbSegundoOperando.TextChanged += textBox2_TextChanged;
             // 
             // lblOperar
             // 
@@ -134,84 +140,71 @@
             lblResultado.ForeColor = SystemColors.ActiveCaptionText;
             lblResultado.Location = new Point(38, 63);
             lblResultado.Name = "lblResultado";
-            lblResultado.Size = new Size(175, 46);
+            lblResultado.Size = new Size(0, 46);
             lblResultado.TabIndex = 10;
-            lblResultado.Text = "Resultado:";
             // 
-            // radioButtonBinario
+            // rbBinario
             // 
-            radioButtonBinario.AutoSize = true;
-            radioButtonBinario.Location = new Point(16, 42);
-            radioButtonBinario.Name = "radioButtonBinario";
-            radioButtonBinario.Size = new Size(74, 25);
-            radioButtonBinario.TabIndex = 11;
-            radioButtonBinario.TabStop = true;
-            radioButtonBinario.Text = "Binario";
-            radioButtonBinario.UseVisualStyleBackColor = true;
+            rbBinario.AutoSize = true;
+            rbBinario.Location = new Point(156, 42);
+            rbBinario.Name = "rbBinario";
+            rbBinario.Size = new Size(74, 25);
+            rbBinario.TabIndex = 11;
+            rbBinario.TabStop = true;
+            rbBinario.Text = "Binario";
+            rbBinario.UseVisualStyleBackColor = true;
+            rbBinario.CheckedChanged += rdbBinario_CheckedChanged;
             // 
-            // radioButtonDecimal
+            // rbDecimal
             // 
-            radioButtonDecimal.AutoSize = true;
-            radioButtonDecimal.Location = new Point(149, 42);
-            radioButtonDecimal.Name = "radioButtonDecimal";
-            radioButtonDecimal.Size = new Size(81, 25);
-            radioButtonDecimal.TabIndex = 12;
-            radioButtonDecimal.TabStop = true;
-            radioButtonDecimal.Text = "Decimal";
-            radioButtonDecimal.UseVisualStyleBackColor = true;
-            radioButtonDecimal.CheckedChanged += radioButton2_CheckedChanged;
+            rbDecimal.AutoSize = true;
+            rbDecimal.Location = new Point(6, 42);
+            rbDecimal.Name = "rbDecimal";
+            rbDecimal.Size = new Size(81, 25);
+            rbDecimal.TabIndex = 12;
+            rbDecimal.TabStop = true;
+            rbDecimal.Text = "Decimal";
+            rbDecimal.UseVisualStyleBackColor = true;
+            rbDecimal.CheckedChanged += rdbDecimal_CheckedChanged;
             // 
-            // GrpBoxSistema
+            // gbSistemas
             // 
-            GrpBoxSistema.Controls.Add(radioButtonBinario);
-            GrpBoxSistema.Controls.Add(radioButtonDecimal);
-            GrpBoxSistema.Font = new Font("Segoe UI Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            GrpBoxSistema.Location = new Point(256, 261);
-            GrpBoxSistema.Name = "GrpBoxSistema";
-            GrpBoxSistema.Size = new Size(245, 88);
-            GrpBoxSistema.TabIndex = 13;
-            GrpBoxSistema.TabStop = false;
-            GrpBoxSistema.Text = "Representar resultado en:";
+            gbSistemas.Controls.Add(rbBinario);
+            gbSistemas.Controls.Add(rbDecimal);
+            gbSistemas.Font = new Font("Segoe UI Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            gbSistemas.Location = new Point(256, 261);
+            gbSistemas.Name = "gbSistemas";
+            gbSistemas.Size = new Size(245, 88);
+            gbSistemas.TabIndex = 13;
+            gbSistemas.TabStop = false;
+            gbSistemas.Text = "Representar resultado en:";
             // 
-            // comboBoxOperadores
+            // cbOperadores
             // 
-            comboBoxOperadores.BackColor = SystemColors.InactiveBorder;
-            comboBoxOperadores.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxOperadores.Font = new Font("Segoe UI Light", 19F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBoxOperadores.ForeColor = Color.Red;
-            comboBoxOperadores.FormattingEnabled = true;
-            comboBoxOperadores.Items.AddRange(new object[] {"+", "-", "/", "*" });
-            comboBoxOperadores.Location = new Point(292, 417);
-            comboBoxOperadores.Name = "comboBoxOperadores";
-            comboBoxOperadores.Size = new Size(194, 43);
-            comboBoxOperadores.TabIndex = 14;
-            comboBoxOperadores.SelectedIndexChanged += comboBoxOperadores_SelectedIndexChanged;
-            // 
-            // lblResult
-            // 
-            lblResult.AutoSize = true;
-            lblResult.FlatStyle = FlatStyle.Popup;
-            lblResult.Font = new Font("Arial Narrow", 30F, FontStyle.Regular, GraphicsUnit.Point);
-            lblResult.ForeColor = SystemColors.ActiveCaptionText;
-            lblResult.Location = new Point(219, 63);
-            lblResult.Name = "lblResult";
-            lblResult.Size = new Size(0, 46);
-            lblResult.TabIndex = 15;
+            cbOperadores.BackColor = SystemColors.InactiveBorder;
+            cbOperadores.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbOperadores.Font = new Font("Segoe UI Light", 19F, FontStyle.Regular, GraphicsUnit.Point);
+            cbOperadores.ForeColor = Color.Red;
+            cbOperadores.FormattingEnabled = true;
+            cbOperadores.Location = new Point(292, 417);
+            cbOperadores.Name = "cbOperadores";
+            cbOperadores.Size = new Size(194, 43);
+            cbOperadores.TabIndex = 14;
+            cbOperadores.SelectedIndexChanged += comboBoxOperadores_SelectedIndexChanged;
             // 
             // FrmCalculadora
             // 
             AutoScaleDimensions = new SizeF(6F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(756, 519);
-            Controls.Add(lblResult);
-            Controls.Add(comboBoxOperadores);
-            Controls.Add(GrpBoxSistema);
+            Controls.Add(cbOperadores);
+            Controls.Add(gbSistemas);
             Controls.Add(lblResultado);
             Controls.Add(lblOperar);
             Controls.Add(lblSegundoOperando);
-            Controls.Add(textBox2);
+            Controls.Add(txbSegundoOperando);
             Controls.Add(lblPrimerOperando);
-            Controls.Add(textBox1);
+            Controls.Add(txbPrimerOperando);
             Controls.Add(btnLimpiar);
             Controls.Add(btnCerrar);
             Controls.Add(btnOperar);
@@ -224,8 +217,8 @@
             Text = "Calculadora Alumno: Joaquin Quiroga";
             FormClosing += FormView_FormClosing;
             Load += FormView_Load;
-            GrpBoxSistema.ResumeLayout(false);
-            GrpBoxSistema.PerformLayout();
+            gbSistemas.ResumeLayout(false);
+            gbSistemas.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -235,16 +228,15 @@
         private Button btnOperar;
         private Button btnCerrar;
         private Button btnLimpiar;
-        private TextBox textBox1;
+        private TextBox txbPrimerOperando;
         private Label lblPrimerOperando;
         private Label lblSegundoOperando;
-        private TextBox textBox2;
+        private TextBox txbSegundoOperando;
         private Label lblOperar;
         private Label lblResultado;
-        private RadioButton radioButtonBinario;
-        private RadioButton radioButtonDecimal;
-        private GroupBox GrpBoxSistema;
-        private ComboBox comboBoxOperadores;
-        private Label lblResult;
+        private RadioButton rbBinario;
+        private RadioButton rbDecimal;
+        private GroupBox gbSistemas;
+        private ComboBox cbOperadores;
     }
 }

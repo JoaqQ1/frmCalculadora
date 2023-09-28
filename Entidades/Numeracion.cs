@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
+    
     public enum ESistemas
     {
         Binario,
         Decimal
     }
+    
     public class Numeracion
     {
         private ESistemas sistemas;
         private double valorNumerico;
 
-        public Numeracion(double valorNumerico, ESistemas sistemas)
-        {
-            InicializarValores(valorNumerico.ToString(), sistemas);
-        }
+        public Numeracion(double valorNumerico, ESistemas sistemas):this(valorNumerico.ToString(), sistemas) { }                    
+        
         public Numeracion(string valorNumerico, ESistemas sistemas)
         {
             InicializarValores(valorNumerico, sistemas);
@@ -44,7 +44,6 @@ namespace Entidades
 
         private void InicializarValores(string valor, ESistemas sistema)
         {
-
             this.sistemas = sistema;
 
             if (Sistemas == ESistemas.Binario && !(double.TryParse(valor, out this.valorNumerico)))
@@ -60,16 +59,17 @@ namespace Entidades
         public string ConvertirA(ESistemas sistema)
         {
             if (sistema != this)
-            {                
+            {
                 switch (sistema)
                 {
                     case ESistemas.Binario:
                         return DecimalABinario(Valor);
                     case ESistemas.Decimal:
-                        return BinarioDecimal(Valor).ToString();                    
+                        return BinarioDecimal(Valor).ToString();
+                    default:
+                        return "";
                 }
             }
-
             return Valor;
         }
 
@@ -78,9 +78,10 @@ namespace Entidades
             bool retorno = true;
             foreach (char c in valorNumerico)
             {
-                if ((c != '0') || (c != '1'))
+                if (c != '0' && c != '1')
                 {
                     retorno = false;
+                    break;
                 }
             }
 
@@ -128,19 +129,18 @@ namespace Entidades
                 return "Numero invalido";
         }
 
-
-
         private string DecimalABinario(string valor)
         {
-            if (double.TryParse(valor, out double valorNumerico) && valorNumerico > 0)
+            if (double.TryParse(valor, out double valorNumerico) && valorNumerico > -1)
             {
-                valorNumerico = Math.Round(valorNumerico);
+                //valorNumerico = Math.Round(valorNumerico);
                 int valorEntero = (int)valorNumerico;
                 return DecimalABinario(valorEntero);
             }
             return "Numero invalido";
         }
 
+        //Sobre carga de operadores ==
         public static bool operator == (Numeracion n1, Numeracion n2)
         {
             return n1.Sistemas == n2.Sistemas;
@@ -158,51 +158,52 @@ namespace Entidades
             return !(s == n);
         }
 
+        //Sobre carga de operadores +/*-
         public static Numeracion operator + (Numeracion n1, Numeracion n2)
         {
             double resultado;
-            ESistemas nuevoSistema = ESistemas.Decimal;
-            if (n1== n2)
+            string valor = "Numero Invalido";
+            if (n1 == n2)
             {
-                resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) + double.Parse(n2.ConvertirA(ESistemas.Decimal));           
+                resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) + double.Parse(n2.ConvertirA(ESistemas.Decimal));
+                valor = resultado.ToString();
             }
-            else
-            {
-                resultado = -1;
-                nuevoSistema = ESistemas.Binario;
-            }
-            Numeracion numAux = new Numeracion(resultado, nuevoSistema);
-            return numAux;
+            return new Numeracion(valor, n1.Sistemas);
         }
         public static Numeracion operator - (Numeracion n1, Numeracion n2)
         {
-            double resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) - double.Parse(n2.ConvertirA(ESistemas.Decimal));
-            Numeracion numAux = new Numeracion(resultado, ESistemas.Decimal);
-            return numAux;
+            double resultado;
+            string valor = "Numero Invalido";
+            if (n1 == n2)
+            {
+                resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) - double.Parse(n2.ConvertirA(ESistemas.Decimal));
+                valor = resultado.ToString();
+            }
+            return new Numeracion(valor, n1.Sistemas);
         }
         public static Numeracion operator * (Numeracion n1, Numeracion n2)
         {
 
-            double resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) * double.Parse(n2.ConvertirA(ESistemas.Decimal));
-            Numeracion numAux = new Numeracion(resultado, ESistemas.Decimal);
-            return numAux;
+            double resultado;
+            string valor = "Numero Invalido";
+            if (n1 == n2)
+            {
+                resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) * double.Parse(n2.ConvertirA(ESistemas.Decimal));
+                valor = resultado.ToString();
+            }
+            return new Numeracion(valor, n1.Sistemas);
         }
         public static Numeracion operator / (Numeracion n1, Numeracion n2)
-        {
-            
+        {            
             double resultado;
-            if (double.Parse(n2.ConvertirA(ESistemas.Decimal)) == 0)
-            {
-                resultado = 0;
-            }
-            else
+            string valor = "Numero invalido";
+            if (n1 == n2 && n2.ConvertirA(ESistemas.Decimal) != "0")
             {
                 resultado = double.Parse(n1.ConvertirA(ESistemas.Decimal)) / double.Parse(n2.ConvertirA(ESistemas.Decimal));
-            }
-            Numeracion numAux = new Numeracion(resultado, ESistemas.Decimal);
-            return numAux;
+                valor = resultado.ToString();
+            }      
+            return new Numeracion(valor, n1.Sistemas);
         }
-
-
     }
+    
 }
