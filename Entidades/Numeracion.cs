@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 
 namespace Entidades
-{
-    
-    public enum ESistemas
-    {
-        Binario,
-        Decimal
-    }
-    
+{     
     public class Numeracion
     {
-        private ESistemas sistemas;
+        private ESistemas Sistemas { get; set; }            
+        
         private double valorNumerico;
+        public string Valor{ get{ return this.valorNumerico.ToString(); } }
 
         public Numeracion(double valorNumerico, ESistemas sistemas):this(valorNumerico.ToString(), sistemas) { }                    
         
@@ -25,26 +20,10 @@ namespace Entidades
         {
             InicializarValores(valorNumerico, sistemas);
         }
-
-        public ESistemas Sistemas
-        {
-            get 
-            { 
-                return this.sistemas; 
-            }
-        }
-
-        public string Valor
-        {
-            get
-            {
-                return this.valorNumerico.ToString();
-            }
-        }
-
+        
         private void InicializarValores(string valor, ESistemas sistema)
         {
-            this.sistemas = sistema;
+            Sistemas = sistema;
 
             if (Sistemas == ESistemas.Binario && !(double.TryParse(valor, out this.valorNumerico)))
             {               
@@ -58,7 +37,7 @@ namespace Entidades
 
         public string ConvertirA(ESistemas sistema)
         {
-            if (sistema != this)
+            if (this != sistema)
             {
                 switch (sistema)
                 {
@@ -149,13 +128,34 @@ namespace Entidades
         {
             return !(n1 == n2);
         }
-        public static bool operator == (ESistemas s, Numeracion n)
+        public static bool operator == (Numeracion n,ESistemas s )
         {
-            return s == n.Sistemas;
+            return n.Sistemas == s;
         }
-        public static bool operator != (ESistemas s, Numeracion n)
+        public static bool operator != (Numeracion n,ESistemas s)
         {
-            return !(s == n);
+            return !(n == s);
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj is ESistemas s)
+            {
+                return this == s;
+            }
+            else if (obj is Numeracion n)
+            {
+                return this == n;
+            }
+            else
+            {
+                return false;
+
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         //Sobre carga de operadores +/*-
@@ -181,6 +181,7 @@ namespace Entidades
             }
             return new Numeracion(valor, n1.Sistemas);
         }
+
         public static Numeracion operator * (Numeracion n1, Numeracion n2)
         {
 
@@ -193,6 +194,7 @@ namespace Entidades
             }
             return new Numeracion(valor, n1.Sistemas);
         }
+
         public static Numeracion operator / (Numeracion n1, Numeracion n2)
         {            
             double resultado;

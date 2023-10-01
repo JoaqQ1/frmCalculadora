@@ -4,17 +4,15 @@ namespace Entidades
 {
     public class Operacion
     {
-        private Numeracion primerOperando;
-        private Numeracion segundoOperando;
+
+        public Numeracion PrimerOperando { get; set; }
+        public Numeracion SegundoOperando { get; set; }
 
         public Operacion(Numeracion primerOperando, Numeracion segundoOperando)
         {                 
             PrimerOperando = primerOperando;
             SegundoOperando = segundoOperando;                  
-        }
-        public Numeracion PrimerOperando{ get { return primerOperando;}set { primerOperando = value;}}
-        public Numeracion SegundoOperando{ get { return segundoOperando;}set { segundoOperando = value;}}
-
+        }      
       
         public Numeracion Operar(char operador)
         {
